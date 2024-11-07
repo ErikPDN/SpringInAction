@@ -23,6 +23,6 @@ public class OrderController {
     @PostMapping
     public String processOrder(Order order) {
         log.info("Processing order {}", order);
-        return "redirect:/";
+        return "redirect:/orders/current";
     }
 }
