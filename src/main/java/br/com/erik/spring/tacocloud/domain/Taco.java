@@ -5,9 +5,15 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Date;
 
 @Data  // gera os getter e setter, o toString(), etc
 public class Taco {
+
+    private Long id;
+
+    private Date createdAt;
+
     @NotNull
     @Size(min=5, message="Name must be at least 5 characters long")
     private String name;
