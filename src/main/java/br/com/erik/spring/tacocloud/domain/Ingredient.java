@@ -6,7 +6,7 @@ import lombok.*;
 
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor(access=AccessLevel.PROTECTED, force=true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @Entity
 public class Ingredient {
   @Id
