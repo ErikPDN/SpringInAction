@@ -9,19 +9,24 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Date;
+import java.time.LocalDateTime;
 
-@Data // gera os getter e setter, o toString(), etc
+@Data
 @Entity
+@Table(name = "tacos")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Taco {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  private Date createdAt;
+  private LocalDateTime createdAt;
 
   @NotNull
   @Size(min = 5, message = "Name must be at least 5 characters long")
@@ -33,7 +38,6 @@ public class Taco {
 
   @PrePersist
   void createdAt() {
-    this.createdAt = new Date();
+    this.createdAt = LocalDateTime.now();
   }
-
 }

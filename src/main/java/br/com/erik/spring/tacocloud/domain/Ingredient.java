@@ -4,12 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import lombok.*;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @Entity
+@Table(name = "ingredients")
 public class Ingredient {
   @Id
   private final String id;
