@@ -39,3 +39,21 @@ create table if not exists Taco_Order_Tacos (
     foreign key (tacoOrder) references Taco_Order(id),
     foreign key (taco) references Taco(id)
 );
+
+CREATE TABLE IF NOT EXISTS Users (
+    id serial primary key,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    fullname VARCHAR(100),
+    street VARCHAR(100),
+    city VARCHAR(50),
+    state VARCHAR(2),
+    zip VARCHAR(10),
+    phoneNumber VARCHAR(20)
+);
+
+CREATE TABLE IF not exists UserAuthorities (
+    username VARCHAR(50) NOT NULL,
+    authority VARCHAR(50) NOT NULL,
+    FOREIGN KEY (username) REFERENCES Users(username)
+);

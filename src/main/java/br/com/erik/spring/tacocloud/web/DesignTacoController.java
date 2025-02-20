@@ -6,6 +6,8 @@ import br.com.erik.spring.tacocloud.domain.Ingredient;
 import br.com.erik.spring.tacocloud.domain.Order;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 
 import br.com.erik.spring.tacocloud.domain.Ingredient.Type;
 import br.com.erik.spring.tacocloud.domain.Taco;
+import br.com.erik.spring.tacocloud.domain.User;
 
 @Slf4j
 @Controller
@@ -35,14 +38,17 @@ public class DesignTacoController {
   }
 
   @GetMapping
-  public String showDesignForm(Model model) {
-      List<Ingredient> ingredients = new ArrayList<>();
-      ingredientRepo.findAll().forEach(ingredients::add);
+  public String showDesignForm(Model model, @AuthenticationPrincipal User user) {
+    if (user != null) {
+      model.addAttribute("user", user);
+    }
+
+    List<Ingredient> ingredients = new ArrayList<>();
+    ingredientRepo.findAll().forEach(ingredients::add);
 
     Type[] types = Ingredient.Type.values();
     for (Type type : types) {
-      model.addAttribute(type.toString().toLowerCase(),
-          filterByType(ingredients, type));
+      model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
     }
 
     model.addAttribute("taco", new Taco());

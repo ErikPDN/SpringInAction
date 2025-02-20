@@ -3,6 +3,8 @@ package br.com.erik.spring.tacocloud.domain;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +23,7 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "Users")
 public class User implements UserDetails {
   private static final long serialVersionUID = 1L;
 
@@ -36,6 +39,18 @@ public class User implements UserDetails {
   private String state;
   private String zip;
   private String phoneNumber;
+
+  public User(String username, String password, String fullname, String street, String city, String state, String zip,
+      String phoneNumber) {
+    this.username = username;
+    this.password = password;
+    this.fullname = fullname;
+    this.street = street;
+    this.city = city;
+    this.state = state;
+    this.zip = zip;
+    this.phoneNumber = phoneNumber;
+  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
