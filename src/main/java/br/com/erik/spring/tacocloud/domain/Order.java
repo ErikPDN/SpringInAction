@@ -1,6 +1,8 @@
 package br.com.erik.spring.tacocloud.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,7 +20,6 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.ArrayList;
 
 @Data
 @Entity
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class Order {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private LocalDateTime placedAt;
@@ -56,8 +57,8 @@ public class Order {
   @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
   private String ccCVV;
 
-  @ManyToMany(targetEntity = Taco.class)
-  private List<Taco> tacos = new ArrayList<>();
+  @ManyToMany(targetEntity = Taco.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private List<Taco> tacos;
 
   @PrePersist
   void placedAt() {

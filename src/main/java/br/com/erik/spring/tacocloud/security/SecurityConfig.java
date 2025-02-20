@@ -1,7 +1,5 @@
 package br.com.erik.spring.tacocloud.security;
 
-import javax.sql.DataSource;
-
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +30,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(HttpMethod.GET, "/design").permitAll()
             .requestMatchers(HttpMethod.POST, "/design").permitAll()
+            .requestMatchers(HttpMethod.GET, "/orders/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/").permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

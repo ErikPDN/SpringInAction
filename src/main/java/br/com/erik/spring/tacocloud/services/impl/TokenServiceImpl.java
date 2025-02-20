@@ -1,4 +1,4 @@
-package br.com.erik.spring.tacocloud.security;
+package br.com.erik.spring.tacocloud.services.impl;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -10,20 +10,21 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import br.com.erik.spring.tacocloud.domain.User;
+import br.com.erik.spring.tacocloud.services.TokenService;
 
 @Service
-public class TokenService {
+public class TokenServiceImpl implements TokenService {
   @Value("tacocloud.security.token.secret-key")
   private String secretKey;
 
-  public String generateToken(User user) {
+  @Override
+  public String generateToken(String username) {
     try {
       Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
       String token = JWT.create()
           .withIssuer("tacocloud")
-          .withSubject(user.getUsername())
+          .withSubject(username)
           .withExpiresAt(this.generateExpirationDate())
           .sign(algorithm);
 
@@ -33,6 +34,7 @@ public class TokenService {
     }
   }
 
+  @Override
   public String validateToken(String token) {
     try {
       Algorithm algorithm = Algorithm.HMAC256(secretKey);

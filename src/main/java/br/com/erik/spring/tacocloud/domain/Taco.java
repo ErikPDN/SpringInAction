@@ -28,6 +28,8 @@ public class Taco {
 
   private LocalDateTime createdAt;
 
+  private String imageUrl;
+
   @NotNull
   @Size(min = 5, message = "Name must be at least 5 characters long")
   private String name;
