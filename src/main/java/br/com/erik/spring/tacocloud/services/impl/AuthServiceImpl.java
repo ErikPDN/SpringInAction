@@ -34,17 +34,13 @@ public class AuthServiceImpl implements AuthService {
   }
 
   @Override
-  public AuthResponseDTO register(String username, String password) {
+  public void register(String username, String password) {
     var user = this.userRepository.findByUsername(username);
 
     if (!user.isEmpty()) {
       throw new UserAlreadyExistsException("User already exists");
     }
 
-    var newUser = this.userRepository.save(new User(username, this.passwordEncoder.encode(password)));
-
-    var token = this.tokenService.generateToken(newUser.getUsername());
-
-    return new AuthResponseDTO(newUser.getUsername(), token);
+    this.userRepository.save(new User(username, this.passwordEncoder.encode(password)));
   }
 }
