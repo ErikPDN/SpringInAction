@@ -1,6 +1,7 @@
 package br.com.erik.spring.tacocloud.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ public class AuthController {
   public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequest) {
     try {
       var response = this.authService.login(loginRequest.username(), loginRequest.password());
+      Thread.sleep(2000);
       return ResponseEntity.ok(response);
     } catch (Exception e) {
       return ResponseEntity.badRequest().body(e.getMessage());
@@ -33,6 +35,7 @@ public class AuthController {
   public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequest) {
     try {
       this.authService.register(registerRequest.username(), registerRequest.password());
+      Thread.sleep(2000);
       return ResponseEntity.ok().build();
     } catch (Exception e) {
       return ResponseEntity.badRequest().body(e.getMessage());
