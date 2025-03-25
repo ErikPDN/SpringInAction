@@ -4,7 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.erik.spring.tacocloud.controller.dto.AuthResponseDTO;
-import br.com.erik.spring.tacocloud.controller.dto.UserDTO;
+import br.com.erik.spring.tacocloud.controller.dto.UserTokenResponseDTO;
 import br.com.erik.spring.tacocloud.data.UserRepository;
 import br.com.erik.spring.tacocloud.domain.User;
 import br.com.erik.spring.tacocloud.services.AuthService;
@@ -32,9 +32,9 @@ public class AuthServiceImpl implements AuthService {
 
     var token = this.tokenService.generateToken(username);
     Long id = user.getId();
-    var userDTO = new UserDTO(id, username);
+    var userToken = new UserTokenResponseDTO(id, username);
 
-    return new AuthResponseDTO(userDTO, token);
+    return new AuthResponseDTO(userToken, token);
   }
 
   @Override
