@@ -42,4 +42,10 @@ public class Taco {
   void createdAt() {
     this.createdAt = LocalDateTime.now();
   }
+
+  public Taco(String name, String imageUrl, List<Ingredient> ingredients) {
+    this.name = name;
+    this.imageUrl = imageUrl;
+    this.ingredients = ingredients;
+  }
 }

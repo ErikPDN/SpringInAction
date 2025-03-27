@@ -6,10 +6,12 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor(force = true)
 @Entity
 @Table(name = "ingredients")
 public class Ingredient {
